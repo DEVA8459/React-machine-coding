@@ -7,11 +7,9 @@ to undo git add .
     git rm -r --cached .
 
 ## 2. git Branch
-Here's a step-by-step guide for creating, editing, and merging branches in Git, including merging two branches into each other or into the main branch:
 
----
 
-## 1. **Create a New Branch**
+### 1. **Create a New Branch**
 To create and switch to a new branch:
 ```bash
 git checkout -b new-branch-name

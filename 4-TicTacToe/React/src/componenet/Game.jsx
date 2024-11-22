@@ -8,6 +8,9 @@ const Game = () => {
     const position = e.target.id;
     console.log(position);
 
+    if (square[position] || won) return;
+
+
     const copyMatrix = [...square];
     copyMatrix[position] = isXturn ? "X" : "O";
     setSquare(copyMatrix);
@@ -47,15 +50,15 @@ const Game = () => {
       <h1>Tic Toc Toe</h1>
       <div className="board" onClick={handleClick}>
         {square.map((items, index) => (
-          <div key={index} id={index} className="box">
+          <div key={index} id={index} className={!won ? "box" : "disable"}>
             {items}
           </div>
         ))}
       </div>
       <div className="game-info">
         <button onClick={handleReset}> Reset</button>
-        <div>Next Player :{isXturn ? "X" : "O"}</div>
-        {won && <div>{won} player Won the Game</div>}
+        {!won ? <div>current Player :{isXturn ? "X" : "O"}</div>:<div>{won} Won the Game</div>}
+        
       </div>
     </div>
   );

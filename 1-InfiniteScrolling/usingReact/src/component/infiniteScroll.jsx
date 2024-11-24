@@ -10,7 +10,7 @@ const InfiniteQuotes = () => {
   const [hasMore, setHasMore] = useState(true);
 
   let limit = 10;
-  const maxQuotes = 30; // Total quotes to fetch
+  const maxQuotes = 100; // Total quotes to fetch
   const maxPages = maxQuotes / limit; //because this api has 1400 quotes we dont need thismuch
 
   const getQuotes = async () => {
@@ -62,23 +62,23 @@ const InfiniteQuotes = () => {
   }, [hasMore, loading]);
 
   return (
-    <div>
-      <h1>Infinite Scrolling</h1>
-      <div>
-        {quotes.map((quote) => {
-          return (
-            <div key={quote.id}>
-              <blockquote>
+    <>
+      <div className="quotes-container">
+        <h1>INFINITE SCROLLING</h1>
+        <div className="quotes">
+          {quotes.map((quote) => {
+            return (
+              <blockquote key={quote.id} className="quote">
                 {quote.id} . {quote.quote}
-                <footer>{quote.author}</footer>
+                <footer>...{quote.author}</footer>
               </blockquote>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        {loading && <p>loading...</p>}
+        {!hasMore && <p>no quotes</p>}
       </div>
-      {loading && <p>Loading...</p>}
-      {!hasMore && <p>the End</p>}
-    </div>
+    </>
   );
 };
 

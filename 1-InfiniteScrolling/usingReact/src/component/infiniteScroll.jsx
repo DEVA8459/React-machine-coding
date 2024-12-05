@@ -14,7 +14,8 @@ const InfiniteQuotes = () => {
   const maxPages = maxQuotes / limit; //because this api has 1400 quotes we dont need thismuch
 
   const getQuotes = async () => {
-    if (!hasMore || loading) return;
+    // hasmore ko false karna aur if bhul gya tha 
+    if (!hasMore || loading) return; //prevent multiple fetch while other fetch is loading
 
     setLoading(true);
 
@@ -28,6 +29,7 @@ const InfiniteQuotes = () => {
 
     if (result.quotes.length > 0) {
       setQuotes((prev) => [...prev, ...result.quotes]);
+      //bhul gya thja prev koo
 
       if (
         quotes.length + result.quotes.length >= maxQuotes ||
@@ -45,6 +47,7 @@ const InfiniteQuotes = () => {
     getQuotes();
   }, [page]);
 
+  //ye use efect pura bhul gaya tha
   useEffect(() => {
     const handleScroll = () => {
       if (

@@ -1,0 +1,43 @@
+body{
+  background-color:#3c703a;
+  color:black;
+  text-align:center;
+  
+}
+
+.container{
+  background-color:#6ff669;
+  height:auto;
+  padding :20px;
+  margin:40px;
+  justify-content:;
+  align-items:center;
+  text-align:center;
+  border:5px solid green;
+  border-radius:100px
+}
+
+.form{
+  display:flex;
+  flex-direction: column;
+  gap:10px;
+  margin:5px;
+  padding:20px;
+  justify-content:center;
+
+}
+.form label{
+  margin-right: 10px !important;
+  padding-right:5px;
+ 
+  
+}
+.form input{
+  margin-left: 10px !important;
+  padding-left:20px;
+  
+}
+
+.error {
+  color: red;
+}

@@ -25,7 +25,7 @@ function TodoApp() {
   // Delete a task
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
-  };
+  };a
 
   return (
     <div>

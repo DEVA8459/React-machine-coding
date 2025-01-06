@@ -52,7 +52,7 @@ const InfiniteQuotes = () => {
     const handleScroll = () => {
       if (
         window.innerHeight + document.documentElement.scrollTop >=
-          document.documentElement.scrollHeight - 50 &&
+          document.documentElement.scrollHeight - 5 &&
         hasMore &&
         !loading
       ) {

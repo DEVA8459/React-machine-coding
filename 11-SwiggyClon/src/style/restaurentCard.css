@@ -1,30 +1,5 @@
-.restaurant-card {
-    width: 400px;
-    background-color: grey;
-    border-radius: 30px;
-    padding: 30px;
-    margin: 20px;
-    cursor: pointer;
-    overflow: hidden;
-   
-}
-.Rl{
+.body{
+    padding:40px;
     display:flex;
-    width:auto;
-    jsustify-content:center;
-    flex-wrap:wrap;
-   }
-
-.restaurant-card img{
-    width:400px;
-    border-radius:30px;
-    box-shadow: 5px 5px 10px black;
+    flex-direction:column;
 }
-.restaurant-card span{
-    display:flex;
-    flex-direction:column ;
-    font-size:30px;
-    
-}
-
-

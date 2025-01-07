@@ -1,27 +1,23 @@
-import "../style/restaurentCard.css";
-import { useEffect, useState } from "react";
+
 import { RestaurentContainer } from "./restaurentContainer";
+import useFetch from "../customHook/useFetch";
+import WhatInYourMindCarousel from "./WhatInYourMInd";
+import "../style/restaurentCard.css"
+
 export const Body = () => {
-  const [restaurent, setRestaurent] = useState([]);
-  const getData = async () => {
-    const response = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.61610&lng=73.72860&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
+ 
 
-    const result = await response.json();
-    console.log(result);
-    setRestaurent(
-      result?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-  };
+  const {data}=useFetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.61610&lng=73.72860&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
+  console.log(data)
+  const restaurent =data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+  const title =data?.cards[2]?.card?.card?.title
+  const WhatInYourMind = data?.cards[0].card?.card
 
-  useEffect(() => {
-    getData();
-  }, []);
+
   return (
-    <div className="Rl">
-      <RestaurentContainer restaurent={restaurent} />
+    <div className="body">
+      <WhatInYourMindCarousel data={WhatInYourMind}/>
+      <RestaurentContainer title={title} restaurent={restaurent} />
     </div>
-  );
-};
+  )
+}

@@ -1,22 +1,33 @@
 import "../style/body.css";
 import GreenStarSvg from "../assets/GreenStarSvg";
-export const RestaurentContainer = ({ title, restaurent }) => {
+
+import { useSelector } from "react-redux";
+
+export const RestaurentContainer = () => {
   // const restaurent =data?.card?.card?.gridElements?.infoWithStyle?.restaurants
-  console.log(restaurent);
+  // console.log(restaurent);
+ 
+  const {restaurants,searchText ,title} =useSelector((state)=>state.restaurant)
+  console.log(restaurants)
 
   const IMG_CDN_URL =
     "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
 
-  if (!restaurent || restaurent.length === 0) {
+  if (!restaurants || restaurants.length === 0) {
     return <div>No rest Found</div>;
   }
 
+  const filteredRestaurent  = restaurants.filter((items)=>items.info.name.toLowerCase().includes(searchText.toLowerCase()))
+
+
   return (
     <div className="restaurant-container">
+      
       <div className="header">{title}</div>
       <div className="content">
-        {restaurent.map((items) => {
+        {filteredRestaurent.length >0 ? (filteredRestaurent.map((items) => {
           return (
+            
             <div key={items.info.id} className="card">
               <img
                 src={IMG_CDN_URL + items.info.cloudinaryImageId}
@@ -33,7 +44,7 @@ export const RestaurentContainer = ({ title, restaurent }) => {
               </div>
             </div>
           );
-        })}
+        })):(<div>no restaurent found</div>)}
       </div>
     </div>
   );

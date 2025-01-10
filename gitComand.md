@@ -2,6 +2,8 @@
 ## creating app
 1. npm create vite@latest
 2. add 'react/prop-types': 'off', in enlist.config.js
+3. cd FolderName for navigating to folder 
+4. cd .. to navigate to previous
 
 ## 1. Adding to git 
 git add .

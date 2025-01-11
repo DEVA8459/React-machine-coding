@@ -2,30 +2,26 @@ import "../style/body.css";
 import GreenStarSvg from "../assets/GreenStarSvg";
 
 import { useSelector } from "react-redux";
+import {ContainerShimmer} from "./restContainerShimer"
 
 export const RestaurentContainer = () => {
   // const restaurent =data?.card?.card?.gridElements?.infoWithStyle?.restaurants
   // console.log(restaurent);
  
-  const {restaurants,searchText ,title} =useSelector((state)=>state.restaurant)
+  const {restaurants ,title} =useSelector((state)=>state.restaurant)
   console.log(restaurants)
 
   const IMG_CDN_URL =
     "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
 
-  if (!restaurants || restaurants.length === 0) {
-    return <div>No rest Found</div>;
-  }
-
-  const filteredRestaurent  = restaurants.filter((items)=>items.info.name.toLowerCase().includes(searchText.toLowerCase()))
-
+    
 
   return (
     <div className="restaurant-container">
       
       <div className="header">{title}</div>
       <div className="content">
-        {filteredRestaurent.length >0 ? (filteredRestaurent.map((items) => {
+        {restaurants.length >0 ? (restaurants.map((items) => {
           return (
             
             <div key={items.info.id} className="card">
@@ -44,7 +40,7 @@ export const RestaurentContainer = () => {
               </div>
             </div>
           );
-        })):(<div>no restaurent found</div>)}
+        })):(<ContainerShimmer/>)}
       </div>
     </div>
   );

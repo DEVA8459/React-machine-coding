@@ -1,0 +1,50 @@
+.header{
+  Padding:20px;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  width:100%;
+  height:5rem ;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size:1.25rem
+}
+
+.logo{
+  width:30%;
+  
+}
+.logo img{
+  height:3rem
+}
+.nav-search{
+  display:flex ;
+  justify-content:space-between;
+  gap:10px;
+}
+.nav-search:hover{
+  color:#ff5200
+}
+.nav-search:visited{
+  color:black
+}
+.links{
+  display:flex ;
+  justify-content:space-between;
+  align-items:center;
+  gap:30px;
+}
+.nav-signIn{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+.nav-signIn:hover{
+  color:#ff5200
+}
+.contact:hover{
+  color:#ff5200
+}
+.nav-cart:hover{
+  color:#ff5200
+}

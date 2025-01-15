@@ -3,18 +3,22 @@ import "./index.css";
 import { Header } from "./component/Header.jsx";
 import { Body } from "./component/Body.jsx";
 import { Foooter } from "./component/Footer.jsx";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import store from "./reducer/store.jsx";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { SearchComponent } from "./component/SearchComp.jsx";
 import { Login } from "./component/login.jsx";
+import { RestroDetail } from "./component/restaurentDetail/RestoDetail.jsx";
+import { Cart } from "./component/cart/cart.jsx";
 
 export const App = () => {
+  const isCartVisible =useSelector(store=>store.cart.isVisible)
   return (
-    <div className="App">
+    <div >
       <Header />
       <Outlet style={{padding : "70px"}} />
-      <Foooter />
+      {isCartVisible && <Cart />}
+      
     </div>
   );
 };
@@ -33,6 +37,10 @@ const appRouter = createBrowserRouter([{
     {
       path:"/search",
       element:<SearchComponent />
+    },
+    {
+      path:"/restaurents/:id",
+      element:<RestroDetail/>
     },
     {
       path:"/login",

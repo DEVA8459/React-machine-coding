@@ -1,21 +1,29 @@
 export const ContainerShimmer = () => {
   const ShimmerArr = new Array(16).fill(null);
   return (
-    <div>
+    <div style={{padding:"0px"}}>
       <div className="carousel-container">
-        <div className="header">xxxxxxxxxxxx xxxxxxxxxx xxxxxxxxxx</div>
-        <div className="carousel">
-          <div className="carousel-inner">
-            {ShimmerArr.map((_, index) => (
-              <div key={index}>
-                <div className="image">
-                  <img />
-                </div>
+            <div className="carousel-header">
+              <div>XXXXXXX</div>
+              <div className="scroll-arrow">
+                
+               
               </div>
-            ))}
+            </div>
+            <div className="carousel">
+              <div className="carousel-inner" >
+                {ShimmerArr.map((_,index) => (
+                  <div key={index}>
+                    <div className="image">
+                      <img
+                       
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
       <div className="restaurant-container">
         <div className="header">xxxxxx xxxxxx xxxx</div>
         <div className="content">

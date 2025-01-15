@@ -6,6 +6,7 @@ import "../style/restaurentCard.css"
 import { useDispatch } from "react-redux";
 import { setRestaurent } from "../reducer/SearchTermSlice";
 import { useEffect } from "react";
+import { TopRestaurentInCity } from "./TopRestro";
 
 export const Body = () => {
  
@@ -16,6 +17,7 @@ export const Body = () => {
   
   const title =data?.cards[2]?.card?.card?.title
   const WhatInYourMind = data?.cards[0].card?.card
+  const TopRestroInCity = data?.cards[1]?.card?.card;
   useEffect(()=>{
     if(restaurent){
     dispatch(setRestaurent({restaurent ,title}))}
@@ -25,6 +27,7 @@ export const Body = () => {
     <div className="body">
       
       <WhatInYourMindCarousel data={WhatInYourMind}/>
+      <TopRestaurentInCity data={TopRestroInCity}/>
       <RestaurentContainer  />
     </div>
   )

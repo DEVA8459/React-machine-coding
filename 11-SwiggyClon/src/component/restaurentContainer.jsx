@@ -3,6 +3,7 @@ import GreenStarSvg from "../assets/GreenStarSvg";
 
 import { useSelector } from "react-redux";
 import {ContainerShimmer} from "./restContainerShimer"
+import { Link } from "react-router-dom";
 
 export const RestaurentContainer = () => {
   // const restaurent =data?.card?.card?.gridElements?.infoWithStyle?.restaurants
@@ -12,9 +13,7 @@ export const RestaurentContainer = () => {
   console.log(restaurants)
 
   const IMG_CDN_URL =
-    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
-
-    
+    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/"; 
 
   return (
     <div className="restaurant-container">
@@ -24,7 +23,8 @@ export const RestaurentContainer = () => {
         {restaurants.length >0 ? (restaurants.map((items) => {
           return (
             
-            <div key={items.info.id} className="card">
+            
+            <div key={items.info.id} className="card"><Link to={`/restaurents/${items.info.id}`}>
               <img
                 src={IMG_CDN_URL + items.info.cloudinaryImageId}
                 className="card-image"
@@ -37,7 +37,7 @@ export const RestaurentContainer = () => {
                 </span>
                 <p>{items.info.areaName}</p>
                 <p>{items.info.cuisines}</p>
-              </div>
+              </div></Link>
             </div>
           );
         })):(<ContainerShimmer/>)}

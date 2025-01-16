@@ -94,16 +94,17 @@ If there are conflicts during the merge, Git will notify you. You can resolve co
    ```bash
    git commit
    ```
-
 ---
 
 ## 5. **Push Changes to Remote**
-After merging, push the updated branch to the remote repository:
+After merging, push the updated branch to the remote repository
 ```bash
 git push origin branch-name
 ```
 
 ---
+hello
+
 
 ## 6. **Delete Merged Branches (Optional)**
 After merging, you can delete the feature branch locally and remotely:
@@ -139,4 +140,3 @@ After merging, you can delete the feature branch locally and remotely:
    git push origin main
    ```
 
-That's it! Let me know if you'd like further clarification on any step. 😊

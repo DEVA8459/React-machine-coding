@@ -1,1 +1,0 @@
-1. https://www.youtube.com/watch?v=poTc5rqvSTU&list=PLAjOh0819rC0STXuY733rXX_f8L4xEYo_&index=14

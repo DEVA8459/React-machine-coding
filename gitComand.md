@@ -59,7 +59,7 @@ git branch
 ### a. Merge a Feature Branch into Another Branch
 Switch to the branch you want to merge into (e.g., `main`):
 ```bash
-git checkout main
+git checkout mainhh
 ```
 
 Merge the other branch into it:

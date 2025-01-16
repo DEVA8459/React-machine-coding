@@ -16,7 +16,7 @@ export const App = () => {
   return (
     <div >
       <Header />
-      <Outlet style={{padding : "70px"}} />
+      <Outlet  />
       {isCartVisible && <Cart />}
       
     </div>

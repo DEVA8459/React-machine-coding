@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const searchTermSlice = createSlice({
     name:"restaurant" ,
     initialState:{
-        restaurants:[],
+        restro:[],
         searchText :"",
         title: ''
     },
     reducers:{
         setRestaurent:(state ,action)=>{
-            state.restaurants =action.payload.restaurent
-            state.title=action.payload.title
+            state.restro =action.payload.data
+            state.title=action.payload.tit
         },
         setText :(state ,action)=>{
             state.searchText = action.payload

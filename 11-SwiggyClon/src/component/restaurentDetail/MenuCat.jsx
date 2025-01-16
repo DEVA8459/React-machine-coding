@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addItems } from "../../reducer/cartSlice";
+import { FaRegHandPointDown } from "react-icons/fa";
+import { CLOUDINARY__IMAGE_PREFIX } from "../../utils/constant";
 export const MenuCat = ({ data }) => {
-  
   const { title } = data;
   const itemCards = data?.itemCards || data?.categories[0]?.itemCards || [];
-  
 
   const dispatch = useDispatch();
 
@@ -16,27 +16,36 @@ export const MenuCat = ({ data }) => {
   };
 
   return (
-    <div>
-      <span onClick={toggle}>
-        <h1>{`${title}`}</h1>
-      </span>
-      <div>
+    <div className="menu-container">
+      <div className="menu-container-content-title">
+        <h3>{`${title} ${itemCards.length}`}</h3>
+        <div onClick={toggle}>
+          <FaRegHandPointDown />
+        </div>
+      </div>
+      <div className="menuCat">
         {isExpanded &&
           itemCards.map(({ card: { info } }, index) => {
             return (
-              <div key={index}>
-                {/* {console.log(info)} */}
-                <p>{info.name}</p>
-                <p>{info.price}</p>
-                <button
-                  onClick={() => {
-                    // console.log("dispatching" ,info.name)
-                    dispatch(addItems(info));
-                   
-                  }}
-                >
-                  ADD
-                </button>
+              <div key={index} className="menu">
+                <div className="img">
+                  <img src={`${CLOUDINARY__IMAGE_PREFIX}${info.imageId}`} />
+                  <button
+                    onClick={() => {
+                      dispatch(addItems(info));
+                    }}
+                  >
+                    ADD
+                  </button>
+                </div>
+                <div className="info">
+                  <p className="name">{info.name}</p>
+                  <div className="price">
+                    <span>&#8377;</span>
+                    <p>{info.price / 100 || info.defaultPrice / 100}</p>
+                  </div>
+                  <div className="description">{info.description}</div>
+                </div>
               </div>
             );
           })}

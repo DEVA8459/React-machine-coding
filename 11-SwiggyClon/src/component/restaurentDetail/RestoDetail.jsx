@@ -6,6 +6,7 @@ import {
 } from "../../utils/constant";
 import { useEffect, useState } from "react";
 import { MenuCat } from "./MenuCat";
+import "../../style/RestroDetail.css"
 
 export const RestroDetail = () => {
   const { id } = useParams();
@@ -30,16 +31,17 @@ export const RestroDetail = () => {
     }
   }, [data]);
   return (
-    <div>
-      <h1 style={{ padding: "80px" }}>Restro Details {id}</h1>
-      {menuItemCatgory.length > 0 ? (
+    <div className="container" >
+      <div ><h1>Menu</h1></div>
+      <div >{menuItemCatgory.length > 0 ? (
         menuItemCatgory.map((catagory, index) => 
           // {console.log(catagory)}
           <MenuCat key={index} data={catagory.card.card} />
         )
       ) : (
         <p>loading...</p>
-      )}
+      )}</div>
+      
     </div>
   );
 };

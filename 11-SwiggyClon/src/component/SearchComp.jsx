@@ -3,27 +3,41 @@ import "../style/Search.css";
 import { setText } from "../reducer/SearchTermSlice";
 import GreenStarSvg from "../assets/GreenStarSvg";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export const SearchComponent = () => {
-  const { restaurants, searchText } = useSelector((state) => state.restaurant);
+  const { restro, searchText } = useSelector((state) => state.restaurant);
   const dispatch = useDispatch();
-  
+
   // Local state to track whether the user has started searching
   const [hasSearched, setHasSearched] = useState(false);
 
   const IMG_CDN_URL =
     "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
 
+  // Access the correct nested restaurants data
+  const restauren =
+    Array.isArray(restro?.cards?.[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+      ? restro.cards[4].card.card.gridElements.infoWithStyle.restaurants
+      : [];
+
+  const TopRestroInCity =
+    Array.isArray(restro?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+      ? restro.cards[1].card.card.gridElements.infoWithStyle.restaurants
+      : [];
+
+  const AllArr = [...restauren, ...TopRestroInCity]; // Merge both arrays
+
   // Filter the restaurants based on searchText
-  const filteredRestaurent = restaurants.filter((items) =>
-    items.info.name.toLowerCase().includes(searchText.toLowerCase())
+  const filteredRestaurent = AllArr.filter((items) =>
+    items?.info?.name?.toLowerCase().includes(searchText.toLowerCase())
   );
 
   // Update searchText and manage 'hasSearched' state
   const handleSearchChange = (e) => {
     const searchValue = e.target.value;
     dispatch(setText(searchValue));
-    setHasSearched(searchValue.length > 0);  // Set to true if input is not empty
+    setHasSearched(searchValue.length > 0); // Set to true if input is not empty
   };
 
   // Reset search results if the searchText is empty
@@ -51,7 +65,7 @@ export const SearchComponent = () => {
           {filteredRestaurent.length > 0 ? (
             filteredRestaurent.map((items) => (
               <div key={items.info.id} className="card">
-                <img
+                <Link to={`/restaurents/${items.info.id}`}><img
                   src={IMG_CDN_URL + items.info.cloudinaryImageId}
                   alt={items.info.name}
                   className="card-image"
@@ -64,7 +78,7 @@ export const SearchComponent = () => {
                   </span>
                   <p>{items.info.areaName}</p>
                   <p>{items.info.cuisines}</p>
-                </div>
+                </div></Link>
               </div>
             ))
           ) : (

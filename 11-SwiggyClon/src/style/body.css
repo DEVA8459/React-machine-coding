@@ -37,6 +37,9 @@
 .card:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
+.card-content{
+    color:black;
+}
 
 .card-image {
     width: 100%;

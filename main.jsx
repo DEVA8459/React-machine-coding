@@ -1,15 +1,15 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { Header } from "./component/Header.jsx";
-import { Body } from "./component/Body.jsx";
+import { Header } from "./src/component/Header.jsx";
+import { Body } from "./src/component/Body.jsx";
 
 import { Provider, useSelector } from "react-redux";
-import store from "./reducer/store.jsx";
+import store from "./src/reducer/store.jsx";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import { SearchComponent } from "./component/SearchComp.jsx";
-import { Login } from "./component/login.jsx";
-import { RestroDetail } from "./component/restaurentDetail/RestoDetail.jsx";
-import { Cart } from "./component/cart/cart.jsx";
+import { SearchComponent } from "./src/component/SearchComp.jsx";
+import { Login } from "./src/component/login.jsx";
+import { RestroDetail } from "./src/component/restaurentDetail/RestoDetail.jsx";
+import { Cart } from "./src/component/cart/cart.jsx";
 
 export const App = () => {
   const isCartVisible =useSelector(store=>store.cart.isVisible)

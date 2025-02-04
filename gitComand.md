@@ -4,7 +4,9 @@
 2. add 'react/prop-types': 'off', in enlist.config.js
 3. cd FolderName for navigating to folder 
 4. cd .. to navigate to previous
-
+5. browser route 
+   1. npm i -D react-router-dom 
+   2. 
 ## 1. Adding to git 
 git add .
 git commit -m "your msg"

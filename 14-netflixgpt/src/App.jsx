@@ -1,16 +1,15 @@
 import Body from "./component/Body";
-import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./component/Login";
 import Browser from "./component/Browse";
 import { useEffect } from "react";
-import { deleteUser, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./utils/Firebase";
-import {useDispatch} from "react-redux"
-import { addUser } from "./utils/reducer/UserSlice";
+import { useDispatch } from "react-redux";
+import { addUser, removeUser } from "./utils/reducer/UserSlice";
 
 function App() {
-
-  const dispatch =useDispatch()
+  const dispatch = useDispatch();
 
   const appRouter = createBrowserRouter([
     {
@@ -29,23 +28,18 @@ function App() {
     },
   ]);
 
-  useEffect(()=>{
+  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const{ uid ,email} = user
-        dispatch(addUser({uid:uid ,email:email}))
-       
-
-        
+        const { uid, email, displayName } = user;
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
       } else {
         // User is signed out
         // ...
-        dispatch(deleteUser());
-        
-
+        dispatch(removeUser());
       }
     });
-  },[])
+  }, []);
   return (
     <>
       <div className="font-bold">

@@ -1,34 +1,57 @@
+export const ValidatingForm = (formData, signin) => {
+  let newErrors = {};
 
+  const isEmailValid = /^\S+@\S+\.\S+$/.test(formData.email);
 
-export const ValidatingForm =(email ,password)=>{
+  const isValidPassword = () => {
+    // Regular expressions for password validation
+    const symbolRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    const numberRegex = /[0-9]/;
+    const upperCaseRegex = /[A-Z]/;
+    const lowerCaseRegex = /[a-z]/;
+    return (
+      formData.password.length >= 8 &&
+      symbolRegex.test(formData.password) &&
+      numberRegex.test(formData.password) &&
+      upperCaseRegex.test(formData.password) &&
+      lowerCaseRegex.test(formData.password)
+    );
+  };
 
-    const isEmailValid =/^\S+@\S+\.\S+$/.test(email)
+  if (!formData.email) {
+    newErrors.email = "email cannot be empty";
+  } else if (!isEmailValid) {
+    newErrors.email = "email must be in abc@xyz.com fromat";
+  }
 
-    const isValidPassword = () => {
-        // Regular expressions for password validation
-        const symbolRegex = /[!@#$%^&*(),.?":{}|<>]/;
-        const numberRegex = /[0-9]/;
-        const upperCaseRegex = /[A-Z]/;
-        const lowerCaseRegex = /[a-z]/;
-        return (
-          password.length >= 8 &&
-          symbolRegex.test(password) &&
-          numberRegex.test(password) &&
-          upperCaseRegex.test(password) &&
-          lowerCaseRegex.test(password)
-        );
-      };
+  if (signin) {
+    if (!formData.fullName) {
+      newErrors.fullName = "full name cannot be empty";
+    }
+  }
 
-      let newErrors ={}
+  if (signin) {
+    if (!formData.contact) {
+      newErrors.contact = "contact cannot be empty ";
+    } else if (!/^\d{10}$/.test(formData.contact)) {
+      newErrors.contact = "contact must have 10 numbers ";
+    }
+  }
 
-      if(!isEmailValid) {
-        newErrors.email ="email required"
-      }
+  if (!formData.password) {
+    newErrors.password = "password cant be blank";
+  } else if (!isValidPassword()) {
+    newErrors.password =
+      "Password must be at least 8 characters long and contain at least one symbol, one number, one uppercase letter, and one lowercase letter";
+  }
 
-      if(!isValidPassword()){
-        newErrors.password="pass not valid it should conatin one capital one "
-      }
+  if (signin) {
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "confirm password cant be blank";
+    } else if (formData.confirmPassword !== formData.password) {
+      newErrors.confirmPassword = "Password not match";
+    }
+  }
 
-    
-    return newErrors
-}
+  return newErrors;
+};

@@ -42,7 +42,7 @@ function App() {
   }, []);
   return (
     <>
-      <div className="font-bold">
+      <div className="fonnett-bold">
         <RouterProvider router={appRouter} />
       </div>
     </>

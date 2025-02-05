@@ -6,6 +6,6 @@ import store from "./utils/reducer/store.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <App />
+    <App className="bg-black" />
   </Provider>
 );

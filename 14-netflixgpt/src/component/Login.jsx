@@ -7,9 +7,10 @@ import {
 import { auth } from "../utils/Firebase";
 import Header from "./Header";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/reducer/UserSlice";
+
 const Login = () => {
   const [ogFormData, setOgformData] = useState({
     fullName: "",
@@ -18,22 +19,21 @@ const Login = () => {
     email: "",
     confirmPassword: "",
   });
-  const [signin, setsignin] = useState(false, { ogFormData });
+
+  const [signin, setsignin] = useState(false);
   const [error, setError] = useState({});
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const isValidate = ValidatingForm(ogFormData, signin);
-    console.log(isValidate);
     if (!isValidate) {
       setError({});
-      console.log("from not submitted due to validation error");
+      console.log("Form not submitted due to validation error");
     } else {
       setError(isValidate);
-      console.log("form Submitted succesfully");
       if (Object.keys(isValidate).length === 0) {
-        console.log("hey buddy");
         if (signin) {
           createUserWithEmailAndPassword(
             auth,
@@ -41,15 +41,12 @@ const Login = () => {
             ogFormData.password
           )
             .then((userCredential) => {
-              // Signed up
               const user = userCredential.user;
-              console.log("user craetd", user);
               updateProfile(user, {
                 displayName: ogFormData.fullName,
                 photoURL: "https://example.com/jane-q-user/profile.jpg",
               })
                 .then(() => {
-                  // Profile updated!
                   const { uid, email, displayName } = auth.currentUser;
                   dispatch(
                     addUser({
@@ -58,25 +55,12 @@ const Login = () => {
                       displayName: displayName,
                     })
                   );
-                  navigate("/browser");
-                  // ...
                 })
-                .catch((error) => {
-                  // An error occurred
-                  // ...
-                  setError(error.message);
-                });
-              // ...
+                .catch((error) => setError({ general: error.message }));
             })
             .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              setError({
-                email: errorMessage + " " + errorCode,
-                password: errorMessage,
-              });
-              console.error("sign up error");
-              // ..
+              setError({ email: error.message, password: error.message });
+              console.error("Sign up error", error);
             });
         } else {
           signInWithEmailAndPassword(
@@ -85,147 +69,133 @@ const Login = () => {
             ogFormData.password
           )
             .then((userCredential) => {
-              // Signed in
               const user = userCredential.user;
-              console.log("use succesfully sign in ", user);
-              // ...
-              navigate("/browser");
+              console.log(user);
             })
-            .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              setError({
-                email: errorMessage + " " + errorCode,
-                password: errorMessage,
-              });
-              console.error("login error ", errorMessage);
-            });
+            .catch((error) =>
+              setError({ email: error.message, password: error.message })
+            );
         }
-      } else {
-        console.log("valiadte kmc", ogFormData);
       }
     }
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setOgformData({
-      ...ogFormData,
-      [name]: value,
-    });
-    setError((preverrors) => ({ ...preverrors, [name]: " ", formData: "" }));
+    setOgformData({ ...ogFormData, [name]: value });
+    setError((prev) => ({ ...prev, [name]: "", formData: "" }));
   };
+
   return (
-    <div>
+    <div className="relative min-h-screen bg-black">
       <Header />
-      <div className="absolute bg-black  overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden">
         <img
           src="https://assets.nflxext.com/ffe/siteui/vlv3/fb5cb900-0cb6-4728-beb5-579b9af98fdd/web/IN-en-20250127-TRIFECTA-perspective_cf66f5a3-d894-4185-9106-5f45502fc387_large.jpg"
-          className="opacity-55 scale-[1.35]  mt-35 ml-65 overflow-hidden"
+          className="opacity-50 w-full h-full object-cover"
+          alt="Background"
         />
       </div>
-      <div className="absolute p-12 w-4/12 my-22 mx-auto right-0 left-0 bg-black/80 rounded-lg ">
-        <p className="text-white text-3xl p-2 m-2 mb-5   ">
-          {signin ? "Sign up" : "Sign In"}
-        </p>
-        {
-          <form onSubmit={handleSubmit}>
+      <div className="relative flex items-center justify-center min-h-screen p-4">
+        <div className="w-full max-w-md bg-black/80 p-6 md:p-10 rounded-lg">
+          <p className="text-white text-3xl font-bold text-center mb-6">
+            {signin ? "Sign Up" : "Sign In"}
+          </p>
+          <form onSubmit={handleSubmit} className="space-y-4">
             {signin && (
-              <div>
+              <>
                 <input
                   type="text"
                   name="fullName"
                   value={ogFormData.fullName}
-                  placeholder="full Name"
+                  placeholder="Full Name"
                   onChange={handleChange}
-                  className="p-5 m-5 border w-11/12 text-white border-white rounded-lg bg-[#141210]/75"
+                  className="p-3 w-full border text-white border-gray-500 rounded-lg bg-[#141210]/75 focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
-                <p className="text-red-600 text-sm font-medium ml-6">
-                  {error.fullName}
-                </p>
+                {error.fullName && (
+                  <p className="text-red-500 text-sm">{error.fullName}</p>
+                )}
                 <input
                   type="text"
                   name="contact"
                   value={ogFormData.contact}
                   onChange={handleChange}
-                  placeholder="contact-number"
-                  className="p-5 m-5 border w-11/12 text-white border-white rounded-lg bg-[#141210]/75 "
+                  placeholder="Contact Number"
+                  className="p-3 w-full border text-white border-gray-500 rounded-lg bg-[#141210]/75 focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
-                <p className="text-red-600 text-sm font-medium ml-6">
-                  {error.contact}
-                </p>
-              </div>
+                {error.contact && (
+                  <p className="text-red-500 text-sm">{error.contact}</p>
+                )}
+              </>
             )}
 
             <input
-              type="text"
+              type="email"
               name="email"
               value={ogFormData.email}
               onChange={handleChange}
-              placeholder="email"
-              className="p-5 m-5 border w-11/12 text-white border-white rounded-lg bg-[#141210]/75 "
+              placeholder="Email"
+              className="p-3 w-full border text-white border-gray-500 rounded-lg bg-[#141210]/75 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
             {error.email && (
-              <p className="text-red-600 text-sm font-medium ml-6">
-                {error.email}
-              </p>
+              <p className="text-red-500 text-sm">{error.email}</p>
             )}
+
             <input
-              type="text"
+              type="password"
               name="password"
-              placeholder="password"
+              placeholder="Password"
               value={ogFormData.password}
               onChange={handleChange}
-              className="p-5 m-5 border text-white border-white w-11/12 rounded-lg  bg-[#141210]/75"
+              className="p-3 w-full border text-white border-gray-500 rounded-lg bg-[#141210]/75 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
             {error.password && (
-              <p className="text-red-600 text-sm font-medium ml-6">
-                {error.password}
-              </p>
+              <p className="text-red-500 text-sm">{error.password}</p>
             )}
+
             {signin && (
-              <div>
+              <>
                 <input
-                  type="text"
+                  type="password"
                   name="confirmPassword"
-                  placeholder="confirm Password"
+                  placeholder="Confirm Password"
                   value={ogFormData.confirmPassword}
                   onChange={handleChange}
-                  className="p-5 m-5 border text-white border-white w-11/12 rounded-lg  bg-[#141210]/75"
+                  className="p-3 w-full border text-white border-gray-500 rounded-lg bg-[#141210]/75 focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
                 {error.confirmPassword && (
-                  <p className="text-red-600 text-sm font-medium ml-6">
+                  <p className="text-red-500 text-sm">
                     {error.confirmPassword}
                   </p>
                 )}
-              </div>
+              </>
             )}
 
-            <button className="p-2 m-5 w-11/12 bg-[#e50914] hover:bg-[#c11119] rounded-lg text-white text-lg">
-              {signin ? "Sign up" : "Sign in "}
+            <button className="w-full p-3 bg-[#e50914] hover:bg-[#c11119] rounded-lg text-white text-lg font-semibold">
+              {signin ? "Sign Up" : "Sign In"}
             </button>
           </form>
-        }
-        <p className="text-gray-500 p-3 text-l text-w">
-          {signin ? "Allready a user ? " : " New to Netflix? "}
-          <span
-            className="text-white cursor-pointer"
-            onClick={() => (
-              setsignin(!signin),
-              setOgformData(
-                {
+
+          <p className="text-gray-400 text-center mt-4">
+            {signin ? "Already have an account?" : "New to Netflix?"}
+            <span
+              className="text-white font-semibold cursor-pointer ml-1"
+              onClick={() => {
+                setsignin(!signin);
+                setOgformData({
                   fullName: "",
                   contact: "",
                   password: "",
                   email: "",
-                  confrimpassword: "",
-                },
-                setError({})
-              )
-            )}
-          >
-            {signin ? "login " : "Sign up now"}
-          </span>
-        </p>
+                  confirmPassword: "",
+                });
+                setError({});
+              }}
+            >
+              {signin ? "Login" : "Sign up now"}
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );

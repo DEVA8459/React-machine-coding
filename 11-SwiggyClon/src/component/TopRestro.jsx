@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 export const TopRestaurentInCity = ({ data }) => {
     const title = data?.header?.title;
     const TopRestroData = data?.gridElements?.infoWithStyle?.restaurants;
-    console.log("topData", TopRestroData);
     const IMG_CDN_URL =
     "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
     if (!TopRestroData > 0) return;

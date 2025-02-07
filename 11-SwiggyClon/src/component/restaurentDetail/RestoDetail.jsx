@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import useFetch from "../../customHook/useFetch";
 import {
+  CORS_PROXY,
   SWIGGY_RESTAURANT_DETAIL_API_END_POINT,
   categoryType,
 } from "../../utils/constant";
@@ -10,7 +11,7 @@ import "../../style/RestroDetail.css"
 
 export const RestroDetail = () => {
   const { id } = useParams();
-  const url = `${SWIGGY_RESTAURANT_DETAIL_API_END_POINT}${id}`;
+  const url = `${CORS_PROXY}?${SWIGGY_RESTAURANT_DETAIL_API_END_POINT}${id}`;
   const { data } = useFetch(url);
   
   const [menuItemCatgory, setMenuItemCategory] = useState([]);
@@ -35,7 +36,7 @@ export const RestroDetail = () => {
       <div ><h1>Menu</h1></div>
       <div >{menuItemCatgory.length > 0 ? (
         menuItemCatgory.map((catagory, index) => 
-          // {console.log(catagory)}
+        
           <MenuCat key={index} data={catagory.card.card} />
         )
       ) : (

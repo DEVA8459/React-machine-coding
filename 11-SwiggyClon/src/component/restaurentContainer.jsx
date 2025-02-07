@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 
 export const RestaurentContainer = () => {
   const { restro} = useSelector((state) => state.restaurant);
-  console.log("restro", restro);
+
 
   // Use optional chaining and fallback to an empty array if necessary
   const restauren = restro?.cards?.[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
   const title =restro?.cards?.[2]?.card?.card?.title
-  console.log(restauren);
+ 
 
   const IMG_CDN_URL =
     "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";

@@ -7,12 +7,12 @@ import { useDispatch } from "react-redux";
 import { setRestaurent } from "../reducer/SearchTermSlice";
 import { useEffect } from "react";
 import { TopRestaurentInCity } from "./TopRestro";
+import {CORS_PROXY} from "../utils/constant"
 
 export const Body = () => {
  
   const dispatch =useDispatch()
-  const {data}=useFetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.61610&lng=73.72860&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
-  console.log("og",data)
+  const {data}=useFetch(`${CORS_PROXY}?https://proxy.corsfix.com/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.61610&lng=73.72860&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`)
   const WhatInYourMind = data?.cards[0].card?.card
   const TopRestroInCity = data?.cards[1]?.card?.card;
   useEffect(()=>{

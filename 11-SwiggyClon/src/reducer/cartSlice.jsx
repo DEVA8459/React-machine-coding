@@ -21,14 +21,14 @@ export const cartSlice =createSlice({
                 }
                 
                 state.items.push(newItem)
-                console.log("Actual items:", JSON.parse(JSON.stringify(state.items)))
+               
             }
             state.totalAmount += (price || defaultPrice)/100
         },
         deleteItems:(state ,action)=>{
             const {id:deleteId} = action.payload
             const {iems:existingItems} = state 
-            console.log("Actual items:", JSON.parse(JSON.stringify(state.items)))
+           
 
 
 

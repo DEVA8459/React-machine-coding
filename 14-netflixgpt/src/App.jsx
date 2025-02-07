@@ -2,6 +2,7 @@ import Body from "./component/Body";
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
 import Login from "./component/Login";
 import Browser from "./component/Browse";
+import DisplayPage from "./component/displayPage";
 
 
 function App() {
@@ -20,6 +21,10 @@ function App() {
         {
           path: "/browser",
           element: <Browser />,
+        },
+        {
+          path: "/displaypage/:id",
+          element: <DisplayPage />,
         },
       ],
     },

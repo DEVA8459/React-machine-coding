@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/Firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/reducer/UserSlice";
 import { CiMenuBurger } from "react-icons/ci";
@@ -13,6 +13,7 @@ import HeaderMenu from "./HeaderMenu";
 import MobileHeadMenu from "./MobileHeadMenu";
 
 const Header = () => {
+  
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const Header = () => {
       if (user) {
         const { uid, email, displayName } = user;
         dispatch(addUser({ uid, email, displayName }));
-        navigate("/browser");
+        {navigate("/browser")}
       } else {
         dispatch(removeUser());
         navigate("/");
@@ -49,9 +50,14 @@ const Header = () => {
           transition={{ duration: 0.3 }}
           className="fixed top-0 right-0 h-full w-full bg-black shadow-lg  z-40 p-6"
         >
-          <buttton onClick={() => setIsOpen(!isOpen)}>
+          <div><buttton onClick={() => setIsOpen(!isOpen)}>
           <IoCloseSharp className="size-15 mr-40 text-white " />
         </buttton>
+        <img
+              src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+              className="w-10 rounded-full m-2 bg-white"
+            /></div>
+          
           
           <MobileHeadMenu/>
         </motion.div>

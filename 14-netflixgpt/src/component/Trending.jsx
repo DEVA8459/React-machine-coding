@@ -7,7 +7,7 @@ const Trending = () => {
     const PopularMovies=useMoviesFetch(TRENDING)
 
     if(!PopularMovies)return
-    console.log("POP",PopularMovies)
+    
     const data =PopularMovies?.data?.results
   return (
     <div className="p-4">

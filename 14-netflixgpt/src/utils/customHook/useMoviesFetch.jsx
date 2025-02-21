@@ -31,7 +31,7 @@ const useMoviesFetch = (url) => {
     try {
       dispatch({ type: apiActions.FETCH_DATA });
       const response = await axios.get(url, API_OPTIONS);
-      console.log(response?.data)
+      
       dispatch({ type: apiActions.SET_DATA, payload:response?.data});
     } catch (error) {
       if (!axios.isCancel(error)) {

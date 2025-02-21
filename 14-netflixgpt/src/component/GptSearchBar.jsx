@@ -22,22 +22,22 @@ const GptSearchBar = () => {
         model: 'gpt-3.5-turbo',
       });
       // handle error here if(!chatCompletion.choices?.[0]?.message?.content){lawda lassun}
-      console.log(chatCompletion.choices?.[0]?.message?.content)
+     
       const getMovies =chatCompletion.choices?.[0]?.message?.content.split(",").map(movie => movie.trim());
-      console.log("a",getMovies)
+      
       const tmdbSearchAPi = getMovies.map((movies)=>getTmdbMOvies(movies)) 
 
-      console.log("b",tmdbSearchAPi)
+     
       //it will take some tome to return this result for time being it gives us 5 promises 
       //but we neede agreegate of those promises thats why promise.all
 
       const tmdbRawResults= await Promise.all(tmdbSearchAPi)
-      console.log("raw",tmdbRawResults)
+     
       const tmdbResult = tmdbRawResults.map(response => ({
         data: response?.data?.results || "Unknown",
       }));
       dispatch(addGptMovieResult({movieNames :getMovies ,movieResults :tmdbResult}))
-      console.log("tndb",tmdbResult)
+      
       searchText.current.value =""
 
   }

@@ -3,7 +3,7 @@ import VideoBAckground from "./VideoBAckground";
 import SecondaryContainer from "./SecondaryContainer";
 
 import useMoviesFetch from "../utils/customHook/useMoviesFetch";
-import Header from "./Header";
+
 import Logo from "./Logo";
 
 const DisplayPage = () => {

@@ -6,7 +6,7 @@ const GptMovieSuggestion = () => {
 
   if (!movieNames) return;
   if (!movieResults) return;
-  console.log("mr", movieResults);
+ 
 
   return (
     <div className=" flex flex-wrap rounded-3xl bg-black/65 text-white mt-16 p-4 w-full ">

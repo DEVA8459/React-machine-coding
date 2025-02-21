@@ -7,7 +7,7 @@ const TVTopRated = () => {
     const PopularMovies=useMoviesFetch(TV_TOP_RATED)
 
     if(!PopularMovies)return
-    console.log("POP",PopularMovies)
+    
     const data =PopularMovies?.data?.results
   return (
     <div className="p-4">

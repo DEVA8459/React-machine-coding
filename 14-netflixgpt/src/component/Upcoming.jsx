@@ -6,7 +6,7 @@ const Upcoming = () => {
   const UpcomingMovies = useMoviesFetch(UPCOMING_MOVIES);
 
   if (!UpcomingMovies) return;
-  console.log("POP", UpcomingMovies);
+ 
   const data = UpcomingMovies?.data?.results;
   return (
     <div className="p-4">
